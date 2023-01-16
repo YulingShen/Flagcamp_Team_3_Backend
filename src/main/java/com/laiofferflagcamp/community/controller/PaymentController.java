@@ -21,6 +21,6 @@ public class PaymentController {
     @RequestMapping(value = "/favorite", method = RequestMethod.POST)
     @ResponseBody
     public List<PaymentItem> getPaymentList(HttpServletRequest request, HttpServletResponse response){
-        return paymentService.getPayments("");
+        return paymentService.getPayments("111");
     }
 }
