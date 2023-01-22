@@ -1,6 +1,6 @@
 package com.laiofferflagcamp.community.controller;
 
-import com.laiofferflagcamp.community.entity.db.PaymentItem;
+import com.laiofferflagcamp.community.entity.db.Invoice;
 import com.laiofferflagcamp.community.service.PaymentService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -20,7 +20,7 @@ public class PaymentController {
 
     @RequestMapping(value = "/favorite", method = RequestMethod.POST)
     @ResponseBody
-    public List<PaymentItem> getPaymentList(HttpServletRequest request, HttpServletResponse response){
-        return paymentService.getPayments("111");
+    public List<Invoice> getPaymentList(HttpServletRequest request, HttpServletResponse response){
+        return paymentService.getPayments("");
     }
 }
