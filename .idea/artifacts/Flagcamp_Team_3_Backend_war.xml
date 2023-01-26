@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Flagcamp_Team_3_Backend:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>Flagcamp_Team_3_Backend</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="community-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="Flagcamp_Team_3_Backend:war exploded" />
+    </root>
+  </artifact>
+</component>
