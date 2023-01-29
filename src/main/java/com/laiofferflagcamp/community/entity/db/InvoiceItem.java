@@ -12,7 +12,7 @@ import java.util.Date;
 @Table(name = "invoice")
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Invoice {
+public class InvoiceItem {
 
     @Id
     @Column(name = "invoice_id")
