@@ -1,6 +1,7 @@
 package com.laiofferflagcamp.community.dao;
 
 import com.laiofferflagcamp.community.entity.db.Maintenance;
+import com.laiofferflagcamp.community.entity.db.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,19 +74,25 @@ public class MaintenanceDao {
 
 
 
-        public Set<String> getFavoriteItemIds(String userId) {
-            Set<String> itemIds = new HashSet<>();
+    public void editMaintenance(String userId, String mainId, Maintenance maintenance) {
 
-            try (Session session = sessionFactory.openSession()) {
-                Set<Maintenance> maintenances = session.get(User.class, userId).getMainSet();
-                for(Maintenance maintenance : maintenances) {
-                    itemIds.add(maintenance.getMaintenanceId());
-                }
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-            return itemIds;
+        Session session = null;
+        try {
+            session = sessionFactory.openSession();
+            User user = session.get(User.class, userId);
+            user.getMainSet().(mainId);
+            session.beginTransaction();
+            session.update(user);
+            session.getTransaction().commit();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            session.getTransaction().rollback();
+        } finally {
+            if (session != null) session.close();
         }
+
+    }
 
         // Get favorite items for the given user. The returned map includes three entries like {"Video": [item1, item2, item3], "Stream": [item4, item5, item6], "Clip": [item7, item8, ...]}
 //    public Map<String, List<String>> getFavoriteGameIds(Set<String> favoriteItemIds) {

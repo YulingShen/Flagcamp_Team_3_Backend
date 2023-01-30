@@ -1,6 +1,7 @@
 package com.laiofferflagcamp.community.controller;
 
 import com.laiofferflagcamp.community.entity.db.Maintenance;
+import com.laiofferflagcamp.community.entity.request.MainRequestBody;
 import com.laiofferflagcamp.community.service.MaintenanceService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -35,7 +36,7 @@ public class MaintenanceController {
         }
         String userId = (String) session.getAttribute("user_id");
 
-        maintenanceService.createMaintenance(userId, requestBody.getFavoriteItem());
+        maintenanceService.createMaintenance(userId, requestBody.getMaintenance());
 
     }
 
@@ -61,7 +62,7 @@ public class MaintenanceController {
             return;
         }
         String userId = (String) session.getAttribute("user_id");
-        maintenanceService.deleteMaintenance(userId, requestBody.getFavoriteItem().getId());
+        maintenanceService.deleteMaintenance(userId, requestBody.getMaintenance().getMaintenanceId());
     }
 
     // update
@@ -77,7 +78,7 @@ public class MaintenanceController {
         }
         String userId = (String) session.getAttribute("user_id");
 
-        maintenanceService.createMaintenance(userId, requestBody.getFavoriteItem());
+        maintenanceService.createMaintenance(userId, requestBody.getMaintenance());
 
     }
 
