@@ -26,13 +26,13 @@ public class PaymentController {
     @RequestMapping(value = "/payment", method = RequestMethod.GET)
     @ResponseBody
     public List<InvoiceItem> getPaymentList(HttpServletRequest request, HttpServletResponse response){
-        return paymentService.getPayments("");
+        return paymentService.getPayments("1");
     }
 
     @RequestMapping(value = "/payment", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> getPaymentLink(@RequestBody PaymentRequestBody requestBody, HttpServletRequest request, HttpServletResponse response) throws StripeException {
         String invoiceId = requestBody.getInvoiceId();
-        return paymentService.getPaymentLink("", invoiceId);
+        return paymentService.getPaymentLink("1", invoiceId);
     }
 }

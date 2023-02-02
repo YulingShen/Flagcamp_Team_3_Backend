@@ -23,8 +23,8 @@ public class InvoiceItem {
     @JsonProperty("payment_id")
     private String paymentId;
 
-    @ManyToOne
-    @JoinColumn(name = "payee", referencedColumnName = "user_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "payee")
     @JsonProperty("payee")
     private User payee;
 
@@ -51,63 +51,11 @@ public class InvoiceItem {
         return invoiceId;
     }
 
-    public void setInvoiceId(String invoiceId) {
-        this.invoiceId = invoiceId;
-    }
-
-    public String getPaymentId() {
-        return paymentId;
-    }
-
-    public void setPaymentId(String paymentId) {
-        this.paymentId = paymentId;
-    }
-
     public User getPayee() {
         return payee;
     }
 
-    public void setPayee(User payee) {
-        this.payee = payee;
-    }
-
-    public Date getInvoiceDate() {
-        return invoiceDate;
-    }
-
-    public void setInvoiceDate(Date invoiceDate) {
-        this.invoiceDate = invoiceDate;
-    }
-
-    public Date getDueDate() {
-        return dueDate;
-    }
-
-    public void setDueDate(Date dueDate) {
-        this.dueDate = dueDate;
-    }
-
-    public Integer getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Integer amount) {
-        this.amount = amount;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public String getPaymentId() {
+        return paymentId;
     }
 }
