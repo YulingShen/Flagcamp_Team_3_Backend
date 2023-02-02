@@ -8,11 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.stripe.exception.StripeException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -23,16 +21,23 @@ public class PaymentController {
     @Autowired
     private PaymentService paymentService;
 
-    @RequestMapping(value = "/payment", method = RequestMethod.GET)
+    @RequestMapping(value = "/bills", method = RequestMethod.GET)
     @ResponseBody
     public List<InvoiceItem> getPaymentList(HttpServletRequest request, HttpServletResponse response){
         return paymentService.getPayments("1");
     }
 
-    @RequestMapping(value = "/payment", method = RequestMethod.POST)
+    @RequestMapping(value = "/checkout", method = RequestMethod.GET)
     @ResponseBody
-    public Map<String, String> getPaymentLink(@RequestBody PaymentRequestBody requestBody, HttpServletRequest request, HttpServletResponse response) throws StripeException {
-        String invoiceId = requestBody.getInvoiceId();
-        return paymentService.getPaymentLink("1", invoiceId);
+    public Map<String, String> getPaymentLink(@RequestParam(value = "invoiceId") String invoiceId, HttpServletRequest request, HttpServletResponse response) throws StripeException {
+//        String invoiceId = requestBody.getInvoiceId();
+        String origin = request.getHeader(HttpHeaders.ORIGIN);
+        return paymentService.getPaymentLink("1", invoiceId, origin);
+    }
+
+    @RequestMapping(value = "/paymentConfirm", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, String> confirmPayment(HttpServletRequest request, HttpServletResponse response) throws StripeException {
+        return paymentService.confirmPayment("1");
     }
 }

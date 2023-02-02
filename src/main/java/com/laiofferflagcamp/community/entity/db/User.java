@@ -34,6 +34,10 @@ public class User {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "payee")
     private List<InvoiceItem> invoiceItems = new ArrayList<>();
 
+    public String getUserId() {
+        return userId;
+    }
+
     public List<InvoiceItem> getInvoiceItems() {
         return invoiceItems;
     }

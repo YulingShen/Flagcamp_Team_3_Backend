@@ -16,7 +16,7 @@ public class InvoiceItem {
 
     @Id
     @Column(name = "invoice_id")
-    @JsonProperty("invoice_id")
+    @JsonProperty("invoiceId")
     private String invoiceId;
 
     @Column(name = "payment_id")
@@ -29,16 +29,16 @@ public class InvoiceItem {
     private User payee;
 
     @Column(name = "invoice_date")
-    @JsonProperty("invoice_date")
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonProperty("invoiceDate")
+    @JsonFormat(pattern="MM/dd/yyyy")
     private Date invoiceDate;
 
-    @Column(name = "due_data")
-    @JsonProperty("due_data")
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @Column(name = "due_date")
+    @JsonProperty("dueDate")
+    @JsonFormat(pattern="MM/dd/yyyy")
     private Date dueDate;
 
-    @JsonProperty("amount")
+    @JsonProperty("invoiceAmount")
     private Integer amount;
 
     @JsonProperty("status")
@@ -57,5 +57,9 @@ public class InvoiceItem {
 
     public String getPaymentId() {
         return paymentId;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
