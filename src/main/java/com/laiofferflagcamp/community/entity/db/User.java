@@ -16,20 +16,31 @@ import java.util.List;
 public class User {
     @Id
     @Column(name = "user_id")
-    @JsonProperty("user_id")
+    @JsonProperty("username")
     private String userId;
 
     @JsonProperty("password")
     private String password;
 
     @Column(name = "first_name")
-    @JsonProperty("first_name")
+    @JsonProperty("firstname")
     private String firstName;
 
     @Column(name = "last_name")
-    @JsonProperty("last_name")
+    @JsonProperty("lastname")
     private String lastName;
 
+    @Column(name = "email")
+    @JsonProperty("email")
+    private String email;
+
+    @Column(name = "phone")
+    @JsonProperty("phone")
+    private String phone;
+
+    @Column(name = "apartment")
+    @JsonProperty("apartment")
+    private String apartment;
     @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "payee")
     private List<InvoiceItem> invoiceItems = new ArrayList<>();
@@ -40,5 +51,17 @@ public class User {
 
     public List<InvoiceItem> getInvoiceItems() {
         return invoiceItems;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getFirstName() {
+        return firstName;
     }
 }

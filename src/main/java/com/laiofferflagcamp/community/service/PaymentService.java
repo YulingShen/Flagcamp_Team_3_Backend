@@ -57,6 +57,9 @@ public class PaymentService {
         Map<String, String> hashMap = new HashMap<>();
         String invoiceId = paymentDao.getPreviousInvoiceId();
         Boolean result = paymentDao.invoiceStateChange(userId, invoiceId, "paid");
+        if (!result) {
+            return null;
+        }
         hashMap.put("success", result.toString());
         //archive the corresponding product in case of futher mis-payment
         Stripe.apiKey = apiKey;
