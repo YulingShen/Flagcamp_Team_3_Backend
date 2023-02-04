@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/aop
+    	http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+    	http://www.springframework.org/schema/tx
+    	http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+	<!-- loading database config -->
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+		lazy-init="false">
+		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+		<property name="ignoreResourceNotFound" value="true" />
+		<property name="locations">
+			<list>
+				<value>classpath:database.properties</value>
+			</list>
+		</property>
+		<property name="fileEncoding">
+			<value>utf-8</value>
+		</property>
+	</bean>
+
+	<!-- scan bean -->
+	<context:component-scan base-package="com.laiofferflagcamp">
+	</context:component-scan>
+
+	<!-- define view parser-->
+	<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass"
+				  value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<!-- druid database connect pool config -->
+	<bean id="dataSource_ali1" class="com.alibaba.druid.pool.DruidDataSource"
+		destroy-method="close">
+		<!-- base config-->
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="driverClassName" value="${jdbc.driver}" />
+	</bean>
+
+	<!-- mysql1 Hibernate config -->
+	<bean id="mySql1SessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean"
+		lazy-init="false">
+		<property name="dataSource" ref="dataSource_ali1" />
+		<property name="packagesToScan" value="com.laiofferflagcamp" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.mysql.dialect}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+				<prop key="hibernate.allow_update_outside_transaction">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!--  use spring transaction manage  -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource_ali1"/>
+	</bean>
+	<!--  start @transaction driven  -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+
+</beans>
