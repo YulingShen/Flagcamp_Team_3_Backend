@@ -47,8 +47,9 @@ public class PaymentController {
             return new HashMap<>();
         }
         String userId = (String) session.getAttribute("username");
-        String origin = request.getHeader(HttpHeaders.ORIGIN);
-        Map<String, String> result = paymentService.getPaymentLink(userId, invoiceId, origin);
+        String referer = request.getHeader(HttpHeaders.REFERER);
+//        String origin = request.getHeader(HttpHeaders.ORIGIN);
+        Map<String, String> result = paymentService.getPaymentLink(userId, invoiceId, referer);
         if (result == null){
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }

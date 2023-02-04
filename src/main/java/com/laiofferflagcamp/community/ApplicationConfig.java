@@ -22,9 +22,12 @@ public class ApplicationConfig {
     }
     @Bean(name = "dataSource")
     public DataSource dataSource() {
-        String RDS_ENDPOINT = "127.0.0.1";
-        String USERNAME = "root";
-        String PASSWORD = "Cds4906~";
+//        String RDS_ENDPOINT = "127.0.0.1";
+//        String USERNAME = "root";
+//        String PASSWORD = "Cds4906~";
+        String RDS_ENDPOINT = "flagcamp-instance.cn2xpzevxi8e.us-west-2.rds.amazonaws.com";
+        String USERNAME = "admin";
+        String PASSWORD = "8055688717";
         //需要修改红色部分, 保留其他内容,  YOUR_RDS_INSTANCE_ADDRESS,USERNAME,  PASSWORD are information created last lesson
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
